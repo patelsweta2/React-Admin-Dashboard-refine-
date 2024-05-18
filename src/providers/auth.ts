@@ -4,8 +4,8 @@ import { API_URL, dataProvider } from "./data";
 
 // For demo purposes and to make it easier to test the app, you can use the following credentials
 export const authCredentials = {
-  email: "michael.scott@dundermifflin.com",
-  password: "demodemo",
+  "email": "michael.scott@dundermifflin.com",
+  "password": "demodemo",
 };
 
 export const authProvider: AuthBindings = {
@@ -17,7 +17,9 @@ export const authProvider: AuthBindings = {
       const { data } = await dataProvider.custom({
         url: API_URL,
         method: "post",
-        headers: {},
+        headers: {
+          "Content-Type": "application/json"
+        },
         meta: {
           variables: { email },
           // pass the email to see if the user exists and if so, return the accessToken
@@ -40,7 +42,7 @@ export const authProvider: AuthBindings = {
       };
     } catch (e) {
       const error = e as Error;
-
+      console.log(error)
       return {
         success: false,
         error: {
@@ -48,6 +50,7 @@ export const authProvider: AuthBindings = {
           name: "name" in error ? error.name : "Invalid email or password",
         },
       };
+      
     }
   },
 
